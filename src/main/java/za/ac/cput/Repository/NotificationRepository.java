@@ -1,6 +1,6 @@
 package za.ac.cput.Repository;
 
-import za.ac.cput.Entity.Notification;
+import za.ac.cput.Domain.Notification;
 
 import java.util.ArrayList;
 import java.util.List;

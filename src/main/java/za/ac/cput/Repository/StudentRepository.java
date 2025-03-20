@@ -5,7 +5,7 @@ Date:15 March 2025
  */
 package za.ac.cput.Repository;
 
-import za.ac.cput.Entity.Student;
+import za.ac.cput.Domain.Student;
 
 import java.util.ArrayList;
 import java.util.List;
