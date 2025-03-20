@@ -3,7 +3,7 @@ Student model class
 Author: Salaamah Peck (230207170)
 Date:15 March 2025
  */
-package za.ac.cput.Entity;
+package za.ac.cput.Domain;
 
 public class Student {
     private final String studentID;

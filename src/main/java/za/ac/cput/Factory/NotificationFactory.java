@@ -1,6 +1,6 @@
 package za.ac.cput.Factory;
 
-import za.ac.cput.Entity.Notification;
+import za.ac.cput.Domain.Notification;
 
 import java.time.LocalDateTime;
 
