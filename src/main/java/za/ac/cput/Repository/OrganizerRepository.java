@@ -6,7 +6,7 @@ Date:19 March 2025
 
 package za.ac.cput.Repository;
 
-import za.ac.cput.Entity.Organizer;
+import za.ac.cput.Domain.Organizer;
 import java.util.List;
 import java.util.ArrayList;
 

@@ -6,7 +6,7 @@ Date:19 March 2025
 
 package za.ac.cput.Factory;
 
-import za.ac.cput.Entity.Organizer;
+import za.ac.cput.Domain.Organizer;
 
 public class OrganizerFactory {
     public static Organizer createOrganizer(String organizerId, String organizerName, String organizerSurname, String organizerEmail, String organizerPhone) {
