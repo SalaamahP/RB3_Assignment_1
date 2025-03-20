@@ -3,7 +3,7 @@ Organizer model class
 Author: Oratile Precious Phologane (230690939)
 Date:19 March 2025
  */
-package za.ac.cput.Entity;
+package za.ac.cput.Domain;
 
 public class Organizer {
     private final String organizerId;
