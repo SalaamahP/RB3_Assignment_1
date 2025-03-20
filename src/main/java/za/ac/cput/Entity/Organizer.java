@@ -1,5 +1,5 @@
 /*Organizer.java
-Student model class
+Organizer model class
 Author: Oratile Precious Phologane (230690939)
 Date:19 March 2025
  */
