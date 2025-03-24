@@ -6,17 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of RsvpRepository using an in-memory list.
+ * Implementation of IRsvpRepository using an in-memory list.
  */
-
-public class RsvpRepository implements IRsvpRepository{
+public class RsvpRepository implements IRsvpRepository {
     private final List<Rsvp> rsvpList = new ArrayList<>();
     private static RsvpRepository repository = null;
 
+    // Private constructor for Singleton pattern
     private RsvpRepository() {}
 
     /**
-     * Singleton instance for repository.
+     * Returns the singleton instance of RsvpRepository.
+     *
+     * @return the singleton instance.
      */
     public static RsvpRepository getInstance() {
         if (repository == null) {
@@ -27,8 +29,11 @@ public class RsvpRepository implements IRsvpRepository{
 
     @Override
     public Rsvp create(Rsvp rsvp) {
-        rsvpList.add(rsvp);
-        return rsvp;
+        if (rsvp != null) {
+            rsvpList.add(rsvp);
+            return rsvp;
+        }
+        return null;
     }
 
     @Override
@@ -41,11 +46,13 @@ public class RsvpRepository implements IRsvpRepository{
 
     @Override
     public Rsvp update(Rsvp updatedRsvp) {
-        Rsvp existingRsvp = read(updatedRsvp.getId());
-        if (existingRsvp != null) {
-            rsvpList.remove(existingRsvp);
-            rsvpList.add(updatedRsvp);
-            return updatedRsvp;
+        if (updatedRsvp != null) {
+            Rsvp existingRsvp = read(updatedRsvp.getId());
+            if (existingRsvp != null) {
+                rsvpList.remove(existingRsvp);
+                rsvpList.add(updatedRsvp);
+                return updatedRsvp;
+            }
         }
         return null;
     }
@@ -62,6 +69,6 @@ public class RsvpRepository implements IRsvpRepository{
 
     @Override
     public List<Rsvp> getAll() {
-        return new ArrayList<>(rsvpList);
+        return new ArrayList<>(rsvpList); // Return a copy to protect data integrity
     }
 }
