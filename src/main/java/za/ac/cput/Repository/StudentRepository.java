@@ -26,7 +26,7 @@ public class StudentRepository implements IStudentRepository{
 
     @Override
     public List<Student> getAll() {
-        return List.of();
+        return new ArrayList<>(studentList);
     }
 
     @Override
@@ -52,12 +52,15 @@ public class StudentRepository implements IStudentRepository{
     @Override
     public Student update(Student updatedStudent) {
         for(int i=0; i<studentList.size(); i++){
+            System.out.println("Checking student ID: " + studentList.get(i).getStudentID());
             if(studentList.get(i).getStudentID().equals(updatedStudent.getStudentID())){
                 studentList.set(i, updatedStudent);
+                System.out.println("Student Updated: " + updatedStudent.getStudentID());
                 return updatedStudent;
              }
 
         }
+        System.out.println("Student not found: " + updatedStudent.getStudentID());
         return null;
     }
 
