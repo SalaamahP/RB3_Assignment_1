@@ -1,11 +1,15 @@
+/*StudentRepositoryTest.java
+Student Repository Test class
+Author: Salaamah Peck (230207170)
+Date: 23 March 2025
+ */
 package za.ac.cput.Repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.Domain.Student;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StudentRepositoryTest {
 
@@ -28,14 +32,17 @@ class StudentRepositoryTest {
     }
 
    @Test
+   //Test adding a student to list
     void createdStudent() {
         assertEquals(1, repository.getAll().size());
 
    }
 
    @Test
+   //Test retrieving a student
     void readStudent() {
         Student retrieved = repository.read("12345");
+        assertNotNull(retrieved, "Student cannot be null");
         assertEquals("John", retrieved.getStudentName());
         assertEquals("Cena", retrieved.getStudentSurname());
         assertEquals("0811234567", retrieved.getStudentPhone());
@@ -43,9 +50,15 @@ class StudentRepositoryTest {
    }
 
    @Test
+       //Test updating a students details
     void updateStudent() {
+        //Confirm existing details
+    Student existingStudent = repository.read("12345");
+    assertNotNull(existingStudent, "Student cannot be null");
+    assertEquals("John", existingStudent.getStudentName());
 
-     Student updatedStudent = new Student.StudentBuilder()
+    //update existing student
+    Student updatedStudent = new Student.StudentBuilder()
              .setStudentID("12345")
              .setStudentName("Jane")
              .setStudentSurname("Cena")
@@ -53,6 +66,8 @@ class StudentRepositoryTest {
              .setStudentPhone("0814793232")
              .build();
      repository.update(updatedStudent);
+
+     //Verify details have been changed
      Student retrieved = repository.read("12345");
      assertEquals("Jane", retrieved.getStudentName());
      assertEquals("Cena", retrieved.getStudentSurname());
@@ -61,6 +76,7 @@ class StudentRepositoryTest {
    }
 
    @Test
+       //Test deleting a student
     void deleteStudent() {
         boolean deleted = repository.delete("12345");
         assertTrue(deleted);
