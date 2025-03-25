@@ -8,9 +8,9 @@ package za.ac.cput.Factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.Domain.Student;
+import za.ac.cput.Util.Helper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StudentFactoryTest {
     @Test
@@ -30,6 +30,24 @@ class StudentFactoryTest {
     void testCreateStudent_Fail() {
             Student student = StudentFactory.createStudent(null, "John", "Cena", "jcenta@mycput.ac.za", "0811234567");
             assertNull(student);
+        }
+
+        @Test
+    void isValidEmail() {
+        assertTrue(Helper.isValidEmail("jcenta@mycput.ac.za"));
+        }
+
+        @Test
+    void isValidPhone() {
+        assertTrue(Helper.isValidPhone("0811234567"));
+        }
+        @Test
+    void isNotValidEmail() {
+        assertFalse(Helper.isValidEmail("jcenta@gmail"));
+        }
+        @Test
+    void isNotValidPhone() {
+        assertFalse(Helper.isValidPhone("08112"));
         }
     }
 
