@@ -6,10 +6,20 @@ Date:15 March 2025
 package za.ac.cput.Factory;
 
 import za.ac.cput.Domain.Student;
+import za.ac.cput.Util.Helper;
 
+/**
+ * Creates a new Student object using the Builder pattern.
+ */
 public class StudentFactory {
     public static Student createStudent(String studentID, String studentName, String studentSurname, String studentEmail, String studentPhone) {
         if (studentID == null || studentName == null || studentSurname == null || studentEmail == null || studentPhone == null){
+            return null;
+        }
+        if (!Helper.isValidEmail(studentEmail)){
+            return null;
+        }
+        if (!Helper.isValidPhone(studentPhone)){
             return null;
         }
         return new Student.StudentBuilder()
