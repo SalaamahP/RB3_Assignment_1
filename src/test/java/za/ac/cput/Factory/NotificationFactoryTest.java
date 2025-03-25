@@ -48,5 +48,5 @@ class NotificationFactoryTest {
         assertEquals("All fields must be provided and cannot be empty.", exception.getMessage());
     }
 }
-
+//end of class
 
