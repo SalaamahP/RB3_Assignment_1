@@ -2,31 +2,51 @@ package za.ac.cput.Factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.Domain.Notification;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class NotificationFactoryTest {
 
+    /**
+     * Test for successfully creating a Notification.
+     */
     @Test
     void testCreateNotification_Success() {
         Notification notification = NotificationFactory.createNotification(
-                "N001", "Event Reminder", "S123", "E789");
+                "Event Reminder", "S123", "E789");
 
         assertNotNull(notification, "Notification should not be null");
-        assertEquals("N001", notification.getNotificationID(), "Notification ID should match");
+        assertNotNull(notification.getNotificationID(), "Notification ID should not be null");
         assertEquals("Event Reminder", notification.getMessage(), "Message should match");
         assertEquals("S123", notification.getStudentID(), "Student ID should match");
         assertEquals("E789", notification.getEventID(), "Event ID should match");
         assertNotNull(notification.getTimestamp(), "Timestamp should be set");
     }
 
+    /**
+     * Test for failure when null values are provided.
+     */
     @Test
     void testCreateNotification_Failure_NullValues() {
-        IllegalArgumentException exception = assertThrows(
+        Exception exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> NotificationFactory.createNotification(null, "Test Message", "S123", "E789")
+                () -> NotificationFactory.createNotification(null, "S123", "E789")
         );
 
         assertEquals("All fields must be provided and cannot be null.", exception.getMessage());
     }
+
+    /**
+     * Test for failure when empty string values are provided.
+     */
+    @Test
+    void testCreateNotification_Failure_EmptyValues() {
+        Exception exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> NotificationFactory.createNotification("", "S123", "E789")
+        );
+
+        assertEquals("All fields must be provided and cannot be empty.", exception.getMessage());
+    }
 }
+//end of class
+
