@@ -1,24 +1,35 @@
 package za.ac.cput.Factory;
 
 import za.ac.cput.Domain.Notification;
-
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-/**
- * Factory class for creating Notification objects using the Builder Pattern.
- */
 public class NotificationFactory {
-    public static Notification createNotification(String notificationID, String message, String studentID, String eventID) {
-        if (notificationID == null || message == null || studentID == null || eventID == null) {
-            return null; // Ensures no null values
+    /**
+     * Creates a new Notification object using the Builder pattern.
+     *
+     * @param message   The message content of the notification.
+     * @param studentID The ID of the student receiving the notification.
+     * @param eventID   The ID of the event related to the notification.
+     * @return A new Notification object.
+     * @throws IllegalArgumentException If any parameter is null or empty.
+     */
+    public static Notification createNotification(String message, String studentID, String eventID) {
+        if (message == null || studentID == null || eventID == null) {
+            throw new IllegalArgumentException("All fields must be provided and cannot be null.");
         }
 
+        if (message.trim().isEmpty() || studentID.trim().isEmpty() || eventID.trim().isEmpty()) {
+            throw new IllegalArgumentException("All fields must be provided and cannot be empty.");
+        }
+
+        String notificationID = UUID.randomUUID().toString(); // Generate a unique ID
         return new Notification.Builder()
                 .setNotificationID(notificationID)
                 .setMessage(message)
                 .setStudentID(studentID)
                 .setEventID(eventID)
-                .setTimestamp(LocalDateTime.now()) // Auto-set timestamp
+                .setTimestamp(LocalDateTime.now()) // Set the current timestamp
                 .build();
     }
 }
