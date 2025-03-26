@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import za.ac.cput.Domain.Notification;
 import static org.junit.jupiter.api.Assertions.*;
 
+//[author] Jaedon Prince, 230473474
+//[date] 17/03/2025
+
 class NotificationFactoryTest {
 
     /**
@@ -48,5 +51,5 @@ class NotificationFactoryTest {
         assertEquals("All fields must be provided and cannot be empty.", exception.getMessage());
     }
 }
-//end of class
+
 

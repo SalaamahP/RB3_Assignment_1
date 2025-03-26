@@ -3,71 +3,71 @@ package za.ac.cput.Repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.Domain.Notification;
-import java.time.LocalDateTime;
+import za.ac.cput.Factory.NotificationFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Set;
+
+//[author] Jaedon Prince, 230473474
+//[date] 17/03/2025
+
 class NotificationRepositoryTest {
-    private INotificationRepository repository;
-    private Notification notification;
+    private NotificationRepository repository;
+    private Notification notification1, notification2;
 
     @BeforeEach
     void setUp() {
         repository = NotificationRepository.getRepository();
-        notification = new Notification.Builder()
-                .setNotificationID("N001")
-                .setMessage("Event Reminder")
-                .setStudentID("S123")
-                .setEventID("E789")
-                .setTimestamp(LocalDateTime.now())
-                .build();
-        repository.create(notification);
+
+        //Reset repository before each test to prevent duplicates
+        repository.clear();
+
+        notification1 = NotificationFactory.createNotification("Message 1", "S123", "E001");
+        notification2 = NotificationFactory.createNotification("Message 2", "S456", "E002");
+
+        repository.create(notification1);
+        repository.create(notification2);
     }
 
     @Test
     void testCreate() {
-        Notification created = repository.create(new Notification.Builder()
-                .setNotificationID("N002")
-                .setMessage("New Event Alert")
-                .setStudentID("S456")
-                .setEventID("E999")
-                .setTimestamp(LocalDateTime.now())
-                .build());
-
-        assertNotNull(created, "Notification should be created");
-        assertEquals("N002", created.getNotificationID(), "Notification ID should match");
+        Notification notification = NotificationFactory.createNotification("New Message", "S789", "E003");
+        assertNotNull(repository.create(notification));
     }
 
     @Test
     void testRead() {
-        Notification found = repository.read("N001");
-        assertNotNull(found, "Notification should be found");
-        assertEquals("N001", found.getNotificationID(), "Notification ID should match");
+        Notification found = repository.read(notification1.getNotificationID());
+        assertNotNull(found);
+        assertEquals(notification1.getMessage(), found.getMessage());
     }
 
     @Test
     void testUpdate() {
-        Notification updated = new Notification.Builder()
-                .setNotificationID("N001")
-                .setMessage("Updated Event Reminder")
-                .setStudentID("S123")
-                .setEventID("E789")
-                .setTimestamp(LocalDateTime.now())
+        Notification updatedNotification = new Notification.Builder()
+                .setNotificationID(notification1.getNotificationID())
+                .setMessage("Updated Message")
+                .setStudentID(notification1.getStudentID())
+                .setEventID(notification1.getEventID())
+                .setTimestamp(notification1.getTimestamp())
                 .build();
 
-        Notification result = repository.update(updated);
-        assertNotNull(result, "Updated notification should not be null");
-        assertEquals("Updated Event Reminder", result.getMessage(), "Message should be updated");
+        repository.update(updatedNotification);
+        Notification readNotification = repository.read(notification1.getNotificationID());
+        assertEquals("Updated Message", readNotification.getMessage());
     }
 
     @Test
     void testDelete() {
-        boolean deleted = repository.delete("N001");
-        assertTrue(deleted, "Notification should be deleted");
-        assertNull(repository.read("N001"), "Deleted notification should not exist");
+        boolean deleted = repository.delete(notification1.getNotificationID());
+        assertTrue(deleted);
+        assertNull(repository.read(notification1.getNotificationID()));
     }
 
     @Test
     void testGetAll() {
-        assertFalse(repository.getAll().isEmpty(), "Repository should not be empty");
+        Set<Notification> allNotifications = repository.getAll();
+        assertEquals(2, allNotifications.size()); // Ensures only 2 notifications exist
     }
 }
+

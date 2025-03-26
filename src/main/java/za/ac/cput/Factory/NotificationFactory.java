@@ -4,6 +4,9 @@ import za.ac.cput.Domain.Notification;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+//[author] Jaedon Prince, 230473474
+//[date] 17/03/2025
+
 public class NotificationFactory {
     /**
      * Creates a new Notification object using the Builder pattern.
