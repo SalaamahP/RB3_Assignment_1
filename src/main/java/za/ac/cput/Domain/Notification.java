@@ -1,7 +1,8 @@
 package za.ac.cput.Domain;
 
 import java.time.LocalDateTime;
-
+//[author] Jaedon Prince, 230473474
+//[date] 17/03/2025
 /**
  * Represents a notification that is sent to a student about an event.
  * Implements the Builder Pattern for easy and flexible object creation.
