@@ -14,12 +14,15 @@ import za.ac.cput.Util.Helper;
 public class StudentFactory {
     public static Student createStudent(String studentID, String studentName, String studentSurname, String studentEmail, String studentPhone) {
         if (studentID == null || studentName == null || studentSurname == null || studentEmail == null || studentPhone == null){
+            //System.out.println("Error: One or more fields are null");
             return null;
         }
         if (!Helper.isValidEmail(studentEmail)){
+            System.out.println("Error: Invalid email");
             return null;
         }
         if (!Helper.isValidPhone(studentPhone)){
+            System.out.println("Error: Invalid phone number");
             return null;
         }
         return new Student.StudentBuilder()
@@ -29,5 +32,7 @@ public class StudentFactory {
                 .setStudentEmail(studentEmail)
                 .setStudentPhone(studentPhone)
                 .build();
+
     }
+
 }

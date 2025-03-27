@@ -17,6 +17,7 @@ class StudentFactoryTest {
     //Test to verify the creation using builder pattern
     void testCreateStudent_Pass() {
         Student student = StudentFactory.createStudent("12345", "John", "Cena", "jcenta@mycput.ac.za", "0811234567");
+        assertNotNull(student);
         assertEquals("John", student.getStudentName());
         assertEquals("Cena", student.getStudentSurname());
         assertEquals("jcenta@mycput.ac.za", student.getStudentEmail());
