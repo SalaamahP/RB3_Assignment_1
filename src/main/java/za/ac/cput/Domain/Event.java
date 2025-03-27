@@ -15,7 +15,7 @@ public class Event {
     private String location;
     private String organizerID;
 
-    private Event(Builder builder) {
+    private Event(Builder builder) {     // Private constructor to enforce the use of Builder Pattern
         this.eventID = builder.eventID;
         this.title = builder.title;
         this.description = builder.description;
@@ -24,6 +24,7 @@ public class Event {
         this.organizerID = builder.organizerID;
     }
 
+    // Getters for accessing private fields
     public String getEventID() { return eventID; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }
@@ -31,6 +32,7 @@ public class Event {
     public String getLocation() { return location; }
     public String getOrganizerID() { return organizerID; }
 
+    // Converts object details to a string format
     @Override
     public String toString() {
         return "Event{" +
@@ -43,7 +45,7 @@ public class Event {
                 '}';
     }
 
-    public static class Builder {
+    public static class Builder { //Builder class for constructing Event objects.
         private String eventID;
         private String title;
         private String description;
@@ -51,6 +53,7 @@ public class Event {
         private String location;
         private String organizerID;
 
+        // Setter methods with return type Builder for method chaining
         public Builder setEventID(String eventID) {
             this.eventID = eventID;
             return this;
@@ -81,10 +84,12 @@ public class Event {
             return this;
         }
 
+        // Builds and returns an Event object
         public Event build() {
             return new Event(this);
         }
 
+        // Copies an existing Event object's values into a new Builder instance
         public Builder copy(Event event) {
             this.eventID = event.eventID;
             this.title = event.title;
