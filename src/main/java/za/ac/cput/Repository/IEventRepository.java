@@ -5,5 +5,5 @@ import za.ac.cput.Domain.Event;
 import java.util.List;
 
 public interface IEventRepository extends IRepository <Event, String> {
-    List<Event> getAll();
+    List<Event> getAll(); //Retrieves all events in the repository.
 }

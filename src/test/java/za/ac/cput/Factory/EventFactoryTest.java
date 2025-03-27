@@ -5,7 +5,8 @@ import za.ac.cput.Domain.Event;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EventFactoryTest {
+public class EventFactoryTest { //tests the creation of an Event object.
+    //Ensures that the object is not null and has correct attributes.
 
     @Test
     public void testCreateEvent() {
