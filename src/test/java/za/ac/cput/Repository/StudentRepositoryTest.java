@@ -35,7 +35,7 @@ class StudentRepositoryTest {
     @AfterEach
     void tearDown() {
         if (repository instanceof StudentRepository){
-            ((StudentRepository) repository).clear();
+            ((StudentRepository) repository).clear(); //clear repo after each test
         }
     }
    @Test
