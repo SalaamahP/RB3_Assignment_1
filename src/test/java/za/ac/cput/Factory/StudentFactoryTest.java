@@ -16,11 +16,11 @@ class StudentFactoryTest {
     @Test
     //Test to verify the creation using builder pattern
     void testCreateStudent_Pass() {
-        Student student = StudentFactory.createStudent("12345", "John", "Cena", "jcenta@mycput.ac.za", "0811234567");
+        Student student = StudentFactory.createStudent("12345", "John", "Cena", "jcena@mycput.ac.za", "0811234567");
         assertNotNull(student);
         assertEquals("John", student.getStudentName());
         assertEquals("Cena", student.getStudentSurname());
-        assertEquals("jcenta@mycput.ac.za", student.getStudentEmail());
+        assertEquals("jcena@mycput.ac.za", student.getStudentEmail());
         assertEquals("0811234567", student.getStudentPhone());
         assertEquals("12345", student.getStudentID());
 
@@ -35,7 +35,7 @@ class StudentFactoryTest {
 
         @Test
     void isValidEmail() {
-        assertTrue(Helper.isValidEmail("jcenta@mycput.ac.za"));
+        assertTrue(Helper.isValidEmail("jcena@mycput.ac.za"));
         }
 
         @Test
@@ -44,7 +44,7 @@ class StudentFactoryTest {
         }
         @Test
     void isNotValidEmail() {
-        assertFalse(Helper.isValidEmail("jcenta@gmail"));
+        assertFalse(Helper.isValidEmail("jcena@gmail"));
         }
         @Test
     void isNotValidPhone() {

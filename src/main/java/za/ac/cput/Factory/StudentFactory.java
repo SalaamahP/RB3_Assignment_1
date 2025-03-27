@@ -14,7 +14,7 @@ import za.ac.cput.Util.Helper;
 public class StudentFactory {
     public static Student createStudent(String studentID, String studentName, String studentSurname, String studentEmail, String studentPhone) {
         if (studentID == null || studentName == null || studentSurname == null || studentEmail == null || studentPhone == null){
-            //System.out.println("Error: One or more fields are null");
+            System.out.println("Error: One or more fields are null");
             return null;
         }
         if (!Helper.isValidEmail(studentEmail)){

@@ -8,7 +8,6 @@ package za.ac.cput.Repository;
 import za.ac.cput.Domain.Student;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class StudentRepository implements IStudentRepository {
@@ -66,11 +65,9 @@ public class StudentRepository implements IStudentRepository {
     @Override
     public boolean delete(String studentId) { //Delete a student
         if (studentId != null) {
-            Iterator<Student> iterator = studentList.iterator();
-            while (iterator.hasNext()) {
-                Student student = iterator.next();
+            for (Student student : studentList) {
                 if (student.getStudentID().equals(studentId)) {
-                    iterator.remove();
+                    studentList.remove(student);
                     return true;
                 }
             }
@@ -78,7 +75,7 @@ public class StudentRepository implements IStudentRepository {
         return false;
     }
 
-  public void clear(){
+    public void clear() {
         studentList.clear();
     }
 }
