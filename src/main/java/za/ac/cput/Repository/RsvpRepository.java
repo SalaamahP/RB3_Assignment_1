@@ -1,7 +1,6 @@
 package za.ac.cput.Repository;
 
-import rsvp.domain.Rsvp;
-import rsvp.repository.RsvpRepository;
+import za.ac.cput.Domain.Rsvp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +36,9 @@ public class RsvpRepository implements IRsvpRepository {
     }
 
     @Override
-    public Rsvp read(String id) {
+    public Rsvp read(String rsvpID) {
         return rsvpList.stream()
-                .filter(r -> r.getId().equals(id))
+                .filter(r -> r.getRsvpID().equals(rsvpID))
                 .findFirst()
                 .orElse(null);
     }
@@ -47,7 +46,7 @@ public class RsvpRepository implements IRsvpRepository {
     @Override
     public Rsvp update(Rsvp updatedRsvp) {
         if (updatedRsvp != null) {
-            Rsvp existingRsvp = read(updatedRsvp.getId());
+            Rsvp existingRsvp = read(updatedRsvp.getRsvpID());
             if (existingRsvp != null) {
                 rsvpList.remove(existingRsvp);
                 rsvpList.add(updatedRsvp);
@@ -58,8 +57,8 @@ public class RsvpRepository implements IRsvpRepository {
     }
 
     @Override
-    public boolean delete(String id) {
-        Rsvp rsvp = read(id);
+    public boolean delete(String rsvpID) {
+        Rsvp rsvp = read(rsvpID);
         if (rsvp != null) {
             rsvpList.remove(rsvp);
             return true;

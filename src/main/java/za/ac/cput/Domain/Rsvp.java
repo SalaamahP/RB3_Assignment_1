@@ -1,70 +1,68 @@
 package za.ac.cput.Domain;
 
-import za.ac.cput.Domain.Student;
 import java.util.Objects;
-
 
 /**
  * Represents an RSVP entry linked to a student and an event.
  */
 public class Rsvp {
-    private final String id;
-    private final Student student;
-    private final String event;
-    private final int numberOfGuests;
+    private final String rsvpID;
+    private final String studentID;
+    private final String eventID;
+    private final String status;
 
     /**
      * Private constructor using Builder pattern.
      */
     private Rsvp(Builder builder) {
-        this.id = builder.id;
-        this.student = builder.student;
-        this.event = builder.event;
-        this.numberOfGuests = builder.numberOfGuests;
+        this.rsvpID = builder.rsvpID;
+        this.studentID = builder.studentID;
+        this.eventID = builder.eventID;
+        this.status = builder.status;
     }
 
-    public String getId() {
-        return id;
+    public String getRsvpID() {
+        return rsvpID;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getStudentID() {
+        return studentID;
     }
 
-    public String getEvent() {
-        return event;
+    public String getEventID() {
+        return eventID;
     }
 
-    public int getNumberOfGuests() {
-        return numberOfGuests;
+    public String getStatus() {
+        return status;
     }
 
     /**
      * Builder class for creating RSVP objects.
      */
     public static class Builder {
-        private String id;
-        private Student student;
-        private String event;
-        private int numberOfGuests;
+        private String rsvpID;
+        private String studentID;
+        private String eventID;
+        private String status;
 
-        public Builder setId(String id) {
-            this.id = id;
+        public Builder setRsvpID(String rsvpID) {
+            this.rsvpID = rsvpID;
             return this;
         }
 
-        public Builder setStudent(Student student) {
-            this.student = student;
+        public Builder setStudentID(String studentID) {
+            this.studentID = studentID;
             return this;
         }
 
-        public Builder setEvent(String event) {
-            this.event = event;
+        public Builder setEventID(String eventID) {
+            this.eventID = eventID;
             return this;
         }
 
-        public Builder setNumberOfGuests(int numberOfGuests) {
-            this.numberOfGuests = numberOfGuests;
+        public Builder setStatus(String status) {
+            this.status = status;
             return this;
         }
 
@@ -78,21 +76,21 @@ public class Rsvp {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rsvp rsvp = (Rsvp) o;
-        return id.equals(rsvp.id);
+        return rsvpID.equals(rsvp.rsvpID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(rsvpID);
     }
 
     @Override
     public String toString() {
         return "Rsvp{" +
-                "id='" + id + '\'' +
-                ", student=" + student +
-                ", event='" + event + '\'' +
-                ", numberOfGuests=" + numberOfGuests +
+                "rsvpID='" + rsvpID + '\'' +
+                ", studentID='" + studentID + '\'' +
+                ", eventID='" + eventID + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
