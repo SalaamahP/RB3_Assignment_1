@@ -1,23 +1,21 @@
 package za.ac.cput.Repository;
 
 import za.ac.cput.Domain.Notification;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.ArrayList;
-import java.util.List;
+//[author] Jaedon Prince, 230473474
+//[date] 17/03/2025
 
-/**
- * Implementation of the Notification repository.
- * Uses an in-memory list to simulate database operations.
- */
 public class NotificationRepository implements INotificationRepository {
-    private static INotificationRepository repository = null;
-    private final List<Notification> notificationList;
+    private static NotificationRepository repository = null;
+    private final Set<Notification> notificationSet;
 
     private NotificationRepository() {
-        notificationList = new ArrayList<>();
+        this.notificationSet = new HashSet<>();
     }
 
-    public static INotificationRepository getRepository() {
+    public static NotificationRepository getRepository() {
         if (repository == null) {
             repository = new NotificationRepository();
         }
@@ -25,42 +23,48 @@ public class NotificationRepository implements INotificationRepository {
     }
 
     @Override
-    public List<Notification> getAll() {
-        return new ArrayList<>(notificationList);
-    }
-
-    @Override
     public Notification create(Notification notification) {
-        if (notification != null) {
-            notificationList.add(notification);
-            return notification;
-        }
-        return null;
+        boolean added = this.notificationSet.add(notification);
+        return added ? notification : null;
     }
 
     @Override
     public Notification read(String notificationID) {
-        for (Notification notification : notificationList) {
-            if (notification.getNotificationID().equals(notificationID)) {
-                return notification;
-            }
-        }
-        return null;
+        return notificationSet.stream()
+                .filter(n -> n.getNotificationID().equals(notificationID))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Notification update(Notification updatedNotification) {
-        for (int i = 0; i < notificationList.size(); i++) {
-            if (notificationList.get(i).getNotificationID().equals(updatedNotification.getNotificationID())) {
-                notificationList.set(i, updatedNotification);
-                return updatedNotification;
-            }
+        Notification existingNotification = read(updatedNotification.getNotificationID());
+        if (existingNotification != null) {
+            notificationSet.remove(existingNotification);
+            notificationSet.add(updatedNotification);
+            return updatedNotification;
         }
         return null;
     }
 
     @Override
     public boolean delete(String notificationID) {
-        return notificationList.removeIf(notification -> notification.getNotificationID().equals(notificationID));
+        Notification notificationToDelete = read(notificationID);
+        if (notificationToDelete != null) {
+            return notificationSet.remove(notificationToDelete);
+        }
+        return false;
+    }
+
+    @Override
+    public Set<Notification> getAll() {
+        return new HashSet<>(notificationSet);
+    }
+
+    /**
+     * Clears the repository to reset data between test runs.
+     */
+    public void clear() {
+        notificationSet.clear();
     }
 }
