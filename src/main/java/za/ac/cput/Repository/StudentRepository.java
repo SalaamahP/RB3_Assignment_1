@@ -15,9 +15,9 @@ public class StudentRepository implements IStudentRepository{
         private final List<Student> studentList;
 
     private StudentRepository(){
-        studentList = new ArrayList<Student>();
+        studentList = new ArrayList<Student>(); //List to store student objects
     }
-    public static IStudentRepository getRepository(){
+    public static IStudentRepository getRepository(){ //Singleton implementation
         if(repository == null){
             repository = new StudentRepository();
         }
@@ -25,12 +25,12 @@ public class StudentRepository implements IStudentRepository{
     }
 
     @Override
-    public List<Student> getAll() {
-        return List.of();
+    public List<Student> getAll() { //retrieve all students
+        return new ArrayList<>(studentList);
     }
 
     @Override
-    public Student create(Student student) {
+    public Student create(Student student) { //create anew student and add to list
      if (student != null) {
          studentList.add(student);
          return student;
@@ -39,7 +39,7 @@ public class StudentRepository implements IStudentRepository{
     }
 
     @Override
-    public Student read(String studentId) {
+    public Student read(String studentId) { //retrieve a student
         for(Student student : studentList){
             if(student.getStudentID().equals(studentId)){
                 return student;
@@ -50,19 +50,22 @@ public class StudentRepository implements IStudentRepository{
     }
 
     @Override
-    public Student update(Student updatedStudent) {
+    public Student update(Student updatedStudent) { //Update student details
         for(int i=0; i<studentList.size(); i++){
+            System.out.println("Checking student ID: " + studentList.get(i).getStudentID());
             if(studentList.get(i).getStudentID().equals(updatedStudent.getStudentID())){
                 studentList.set(i, updatedStudent);
+                System.out.println("Student Updated: " + updatedStudent.getStudentID());
                 return updatedStudent;
              }
 
         }
+        System.out.println("Student not found: " + updatedStudent.getStudentID());
         return null;
     }
 
     @Override
-    public boolean delete(String studentId) {
+    public boolean delete(String studentId) { //Delete a student
         for(int i = 0 ; i < studentList.size() ; i++){
             if(studentList.get(i).getStudentID().equals(studentId)){
                 studentList.remove(i);
