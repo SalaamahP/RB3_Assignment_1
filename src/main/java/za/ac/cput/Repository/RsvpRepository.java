@@ -1,73 +1,103 @@
-package za.ac.cput.Repository;
+package za.ac.cput.Domain;
 
-import za.ac.cput.Domain.Rsvp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 /**
- * Implementation of IRsvpRepository using an in-memory list.
+ * Represents an RSVP entry linked to a student and an event.
  */
-public class RsvpRepository implements IRsvpRepository {
-    private final List<Rsvp> rsvpList = new ArrayList<>();
-    private static RsvpRepository repository = null;
-
-    // Private constructor for Singleton pattern
-    private RsvpRepository() {}
+public class Rsvp {
+    private final String rsvpID;
+    private final String studentID;
+    private final String eventID;
+    private final Status status;
 
     /**
-     * Returns the singleton instance of RsvpRepository.
-     *
-     * @return the singleton instance.
+     * Enum representing RSVP statuses.
      */
-    public static RsvpRepository getInstance() {
-        if (repository == null) {
-            repository = new RsvpRepository();
+    public enum Status {
+        CONFIRMED, PENDING, DECLINED
+    }
+
+    /**
+     * Private constructor using Builder pattern.
+     */
+    private Rsvp(Builder builder) {
+        this.rsvpID = builder.rsvpID;
+        this.studentID = builder.studentID;
+        this.eventID = builder.eventID;
+        this.status = builder.status;
+    }
+
+    public String getRsvpID() {
+        return rsvpID;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Builder class for creating RSVP objects.
+     */
+    public static class Builder {
+        private String rsvpID;
+        private String studentID;
+        private String eventID;
+        private Status status;
+
+        public Builder setRsvpID(String rsvpID) {
+            this.rsvpID = rsvpID;
+            return this;
         }
-        return repository;
-    }
 
-    @Override
-    public Rsvp create(Rsvp rsvp) {
-        if (rsvp != null) {
-            rsvpList.add(rsvp);
-            return rsvp;
+        public Builder setStudentID(String studentID) {
+            this.studentID = studentID;
+            return this;
         }
-        return null;
-    }
 
-    @Override
-    public Rsvp read(String rsvpID) {
-        return rsvpList.stream()
-                .filter(r -> r.getRsvpID().equals(rsvpID))
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
-    public Rsvp update(Rsvp updatedRsvp) {
-        if (updatedRsvp != null) {
-            Rsvp existingRsvp = read(updatedRsvp.getRsvpID());
-            if (existingRsvp != null) {
-                rsvpList.remove(existingRsvp);
-                rsvpList.add(updatedRsvp);
-                return updatedRsvp;
-            }
+        public Builder setEventID(String eventID) {
+            this.eventID = eventID;
+            return this;
         }
-        return null;
-    }
 
-    @Override
-    public boolean delete(String rsvpID) {
-        Rsvp rsvp = read(rsvpID);
-        if (rsvp != null) {
-            rsvpList.remove(rsvp);
-            return true;
+        public Builder setStatus(Status status) {
+            this.status = status;
+            return this;
         }
-        return false;
+
+        public Rsvp build() {
+            return new Rsvp(this);
+        }
     }
 
     @Override
-    public List<Rsvp> getAll() {
-        return new ArrayList<>(rsvpList); // Return a copy to protect data integrity
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rsvp rsvp = (Rsvp) o;
+        return rsvpID.equals(rsvp.rsvpID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rsvpID);
+    }
+
+    @Override
+    public String toString() {
+        return "Rsvp{" +
+                "rsvpID='" + rsvpID + '\'' +
+                ", studentID='" + studentID + '\'' +
+                ", eventID='" + eventID + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

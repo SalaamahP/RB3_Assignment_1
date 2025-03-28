@@ -1,7 +1,6 @@
 package za.ac.cput.Factory;
 
 import za.ac.cput.Domain.Rsvp;
-
 import java.util.UUID;
 
 /**
@@ -14,7 +13,7 @@ public class RsvpFactory {
      *
      * @param studentID The ID of the student making the RSVP.
      * @param eventID The ID of the event.
-     * @param status The RSVP status (e.g., "Confirmed", "Pending").
+     * @param status The RSVP status (CONFIRMED, PENDING, DECLINED).
      * @return A valid Rsvp object or null if input is invalid.
      */
     public static Rsvp createRsvp(String studentID, String eventID, String status) {
@@ -24,11 +23,16 @@ public class RsvpFactory {
             return null; // Ensure valid input
         }
 
-        return new Rsvp.Builder()
-                .setRsvpID(UUID.randomUUID().toString()) // Generates a unique RSVP ID
-                .setStudentID(studentID)
-                .setEventID(eventID)
-                .setStatus(status.trim()) // Trim status to remove leading/trailing spaces
-                .build();
+        try {
+            Rsvp.Status enumStatus = Rsvp.Status.valueOf(status.toUpperCase()); // Convert string to enum
+            return new Rsvp.Builder()
+                    .setRsvpID(UUID.randomUUID().toString()) // Generates a unique RSVP ID
+                    .setStudentID(studentID)
+                    .setEventID(eventID)
+                    .setStatus(enumStatus) // Use enum instead of string
+                    .build();
+        } catch (IllegalArgumentException e) {
+            return null; // Return null if the status is invalid
+        }
     }
 }
