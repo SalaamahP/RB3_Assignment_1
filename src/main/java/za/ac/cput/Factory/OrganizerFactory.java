@@ -10,8 +10,9 @@ import za.ac.cput.Domain.Organizer;
 
 public class OrganizerFactory {
     public static Organizer createOrganizer(String organizerId, String organizerName, String organizerSurname, String organizerEmail, String organizerPhone) {
-        if (organizerId == null || organizerName == null || organizerSurname == null || organizerEmail == null || organizerPhone == null) {
-            return null;
+        if (organizerId == null || organizerId.isEmpty() || organizerName == null || organizerName.isEmpty() || organizerSurname == null || organizerSurname.isEmpty()
+                || organizerEmail == null || organizerEmail.isEmpty() || organizerPhone == null|| organizerPhone.isEmpty()) {
+            throw new IllegalArgumentException("Invalid input: All fields are required");
         }
 
         return new Organizer.OrganizerBuilder()

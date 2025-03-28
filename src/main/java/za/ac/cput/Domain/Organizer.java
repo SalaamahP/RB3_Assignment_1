@@ -6,6 +6,7 @@ Date:19 March 2025
 package za.ac.cput.Domain;
 
 public class Organizer {
+
     private final String organizerId;
     private final String organizerName;
     private final String organizerSurname;

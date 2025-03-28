@@ -14,8 +14,8 @@ public class OrganizerRepository implements IOrganizerRepository{
     private static IOrganizerRepository repository = null;
     private final List<Organizer> organizersList;
 
-    private OrganizerRepository(){
-        organizersList = new ArrayList<Organizer>();
+    public OrganizerRepository(){
+        organizersList = new ArrayList<>();
     }
 
     public static IOrganizerRepository getRepository(){
@@ -28,13 +28,13 @@ public class OrganizerRepository implements IOrganizerRepository{
 
     @Override
     public List<Organizer> getAllOrganizers(){
-        return List.of();
+        return new ArrayList<>(organizersList);
 
     }
 
     @Override
     public Organizer create(Organizer organizer){
-        if (organizer != null) {
+        if (organizer != null && !organizersList.contains(organizer)) {
             organizersList.add(organizer);
             return organizer;
         }
