@@ -32,7 +32,7 @@ class RsvpRepositoryTest {
         assertEquals(rsvp.getRsvpID(), created.getRsvpID());
         assertEquals("S67890", created.getStudentID());
         assertEquals("E12345", created.getEventID());
-        assertEquals("Pending", created.getStatus());
+        assertEquals(Rsvp.Status.PENDING, created.getStatus());
     }
 
     @Test
@@ -54,13 +54,13 @@ class RsvpRepositoryTest {
                 .setRsvpID(testRsvp.getRsvpID())
                 .setStudentID(testRsvp.getStudentID())
                 .setEventID(testRsvp.getEventID())
-                .setStatus("Cancelled") // Change status
+                .setStatus(Rsvp.Status.DECLINED) // Change status
                 .build();
 
         Rsvp result = repository.update(updatedRsvp);
 
         assertNotNull(result);
-        assertEquals("Cancelled", result.getStatus());
+        assertEquals(Rsvp.Status.DECLINED, result.getStatus());
     }
 
     @Test
@@ -69,7 +69,7 @@ class RsvpRepositoryTest {
                 .setRsvpID("FakeID")
                 .setStudentID("S99999")
                 .setEventID("E99999")
-                .setStatus("Pending")
+                .setStatus(Rsvp.Status.DECLINED)
                 .build();
 
         Rsvp result = repository.update(nonExistingRsvp);

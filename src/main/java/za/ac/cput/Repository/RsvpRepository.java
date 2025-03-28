@@ -5,7 +5,7 @@ Author: Patience Phakathi (222228431)
 package za.ac.cput.Repository;
 
 import za.ac.cput.Domain.Rsvp;
-import za.ac.cput.Domain.RsvpStatus;
+import za.ac.cput.Domain.Rsvp.Status;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +44,7 @@ public class RsvpRepository implements IRsvpRepository {
     @Override
     public Rsvp read(String id) {
         return rsvpList.stream()
-                .filter(r -> r.getId().equals(id))
+                .filter(r -> r.getRsvpID().equals(id))
                 .findFirst()
                 .orElse(null);
     }
@@ -52,7 +52,7 @@ public class RsvpRepository implements IRsvpRepository {
     @Override
     public Rsvp update(Rsvp updatedRsvp) {
         if (updatedRsvp != null) {
-            Rsvp existingRsvp = read(updatedRsvp.getId());
+            Rsvp existingRsvp = read(updatedRsvp.getRsvpID());
             if (existingRsvp != null) {
                 rsvpList.remove(existingRsvp);
                 rsvpList.add(updatedRsvp);
@@ -83,7 +83,7 @@ public class RsvpRepository implements IRsvpRepository {
      * @param status The status to filter by.
      * @return A list of RSVPs with the given status.
      */
-    public List<Rsvp> getByStatus(RsvpStatus status) {
+    public List<Rsvp> getByStatus(Status status) {
         return rsvpList.stream()
                 .filter(r -> r.getStatus() == status)
                 .collect(Collectors.toList());

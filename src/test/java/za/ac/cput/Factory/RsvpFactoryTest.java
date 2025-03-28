@@ -17,7 +17,7 @@ class RsvpFactoryTest {
         assertNotNull(rsvp.getRsvpID()); // Ensure ID is generated
         assertEquals("S12345", rsvp.getStudentID());
         assertEquals("E67890", rsvp.getEventID());
-        assertEquals("Confirmed", rsvp.getStatus());
+        assertEquals(Rsvp.Status.CONFIRMED, rsvp.getStatus());
     }
 
     @Test
