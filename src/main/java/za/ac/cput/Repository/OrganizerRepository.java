@@ -14,10 +14,12 @@ public class OrganizerRepository implements IOrganizerRepository{
     private static IOrganizerRepository repository = null;
     private final List<Organizer> organizersList;
 
-    public OrganizerRepository(){
-        organizersList = new ArrayList<>();
+    //List to store Organizer Objects
+    private OrganizerRepository(){
+        organizersList = new ArrayList<Organizer>();
     }
 
+    //Singleton implementation
     public static IOrganizerRepository getRepository(){
         if(repository == null){
             repository = new OrganizerRepository();
@@ -32,6 +34,7 @@ public class OrganizerRepository implements IOrganizerRepository{
 
     }
 
+    //Creates a new organizer and adds it the list
     @Override
     public Organizer create(Organizer organizer){
         if (organizer != null && !organizersList.contains(organizer)) {
@@ -51,26 +54,33 @@ public class OrganizerRepository implements IOrganizerRepository{
         return null;
     }
 
+    //Update organizer's details
     @Override
     public Organizer update(Organizer updatedOrganizer){
-        for(int i=0; i<organizersList.size(); i++){
-            if(organizersList.get(i).getOrganizerId().equals(updatedOrganizer.getOrganizerId())){
-                organizersList.set(i, updatedOrganizer);
+        Organizer retrievedOrganizer = read(updatedOrganizer.getOrganizerId());
+            if(retrievedOrganizer != null){
+                organizersList.set(organizersList.indexOf(retrievedOrganizer), updatedOrganizer);
                 return updatedOrganizer;
             }
-        }
+
+        System.out.println("Organizer not found" + updatedOrganizer.getOrganizerId());
         return null;
     }
 
+    //Delete an organizer
     @Override
     public boolean delete(String organizerId){
-        for(int i=0; i<organizersList.size(); i++){
-            if(organizersList.get(i).getOrganizerId().equals(organizerId)){
-                organizersList.remove(i);
+        for(Organizer organizer : organizersList){
+            if(organizer.getOrganizerId().equals(organizerId)){
+                organizersList.remove(organizer);
                 return true;
             }
         }
         return false;
+    }
+    //Clears the repository to reset data between test runs
+    public void clear(){
+        organizersList.clear();
     }
 
 }
