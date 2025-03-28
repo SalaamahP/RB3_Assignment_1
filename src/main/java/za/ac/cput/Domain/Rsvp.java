@@ -1,3 +1,7 @@
+/*Rsvp.java
+Rsvp class
+Author: Patience Phakathi (222228431)
+ */
 package za.ac.cput.Domain;
 
 import java.util.Objects;
@@ -9,7 +13,14 @@ public class Rsvp {
     private final String rsvpID;
     private final String studentID;
     private final String eventID;
-    private final String status;
+    private final Status status;
+
+    /**
+     * Enum representing RSVP statuses.
+     */
+    public enum Status {
+        CONFIRMED, PENDING, DECLINED
+    }
 
     /**
      * Private constructor using Builder pattern.
@@ -33,7 +44,7 @@ public class Rsvp {
         return eventID;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -44,7 +55,7 @@ public class Rsvp {
         private String rsvpID;
         private String studentID;
         private String eventID;
-        private String status;
+        private Status status;
 
         public Builder setRsvpID(String rsvpID) {
             this.rsvpID = rsvpID;
@@ -61,7 +72,7 @@ public class Rsvp {
             return this;
         }
 
-        public Builder setStatus(String status) {
+        public Builder setStatus(Status status) {
             this.status = status;
             return this;
         }

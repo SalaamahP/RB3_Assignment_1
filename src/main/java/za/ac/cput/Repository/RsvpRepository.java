@@ -1,8 +1,14 @@
+/*RsvpRepository.java
+Rsvp class
+Author: Patience Phakathi (222228431)
+ */
 package za.ac.cput.Repository;
 
 import za.ac.cput.Domain.Rsvp;
+import za.ac.cput.Domain.RsvpStatus;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of IRsvpRepository using an in-memory list.
@@ -36,9 +42,9 @@ public class RsvpRepository implements IRsvpRepository {
     }
 
     @Override
-    public Rsvp read(String rsvpID) {
+    public Rsvp read(String id) {
         return rsvpList.stream()
-                .filter(r -> r.getRsvpID().equals(rsvpID))
+                .filter(r -> r.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
@@ -46,7 +52,7 @@ public class RsvpRepository implements IRsvpRepository {
     @Override
     public Rsvp update(Rsvp updatedRsvp) {
         if (updatedRsvp != null) {
-            Rsvp existingRsvp = read(updatedRsvp.getRsvpID());
+            Rsvp existingRsvp = read(updatedRsvp.getId());
             if (existingRsvp != null) {
                 rsvpList.remove(existingRsvp);
                 rsvpList.add(updatedRsvp);
@@ -57,8 +63,8 @@ public class RsvpRepository implements IRsvpRepository {
     }
 
     @Override
-    public boolean delete(String rsvpID) {
-        Rsvp rsvp = read(rsvpID);
+    public boolean delete(String id) {
+        Rsvp rsvp = read(id);
         if (rsvp != null) {
             rsvpList.remove(rsvp);
             return true;
@@ -69,5 +75,17 @@ public class RsvpRepository implements IRsvpRepository {
     @Override
     public List<Rsvp> getAll() {
         return new ArrayList<>(rsvpList); // Return a copy to protect data integrity
+    }
+
+    /**
+     * Retrieves RSVPs based on their status.
+     *
+     * @param status The status to filter by.
+     * @return A list of RSVPs with the given status.
+     */
+    public List<Rsvp> getByStatus(RsvpStatus status) {
+        return rsvpList.stream()
+                .filter(r -> r.getStatus() == status)
+                .collect(Collectors.toList());
     }
 }
