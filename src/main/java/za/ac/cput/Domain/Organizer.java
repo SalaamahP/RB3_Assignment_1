@@ -4,14 +4,16 @@ Author: Oratile Precious Phologane (230690939)
 Date:19 March 2025
  */
 package za.ac.cput.Domain;
-
+//Represent an Organizer responsible for the event creation.
 public class Organizer {
-    private final String organizerId;
-    private final String organizerName;
-    private final String organizerSurname;
-    private final String organizerEmail;
-    private final String organizerPhone;
 
+    private final String organizerId;  //An id to uniquely identify the event Organizer
+    private final String organizerName;  //The name of the event Organizer
+    private final String organizerSurname;   //The surname of the organizer
+    private final String organizerEmail;   // email of the organizer
+    private final String organizerPhone;   // Phone number of the organizer
+
+    // Private constructor to enforce the use of Builder Pattern
     private Organizer(OrganizerBuilder builder) {
         this.organizerId = builder.organizerId;
         this.organizerName = builder.organizerName;
@@ -20,7 +22,7 @@ public class Organizer {
         this.organizerPhone = builder.organizerPhone;
 
     }
-
+    //Getters for the organizer's attributes
     public String getOrganizerId() {
         return organizerId;
     }
@@ -41,6 +43,7 @@ public class Organizer {
         return organizerPhone;
     }
 
+    // Converts organizer's object details to a string format
     @Override
     public String toString() {
         return "Organizer{" +
@@ -51,7 +54,7 @@ public class Organizer {
                 ", organizerPhone='" + organizerPhone + '\'' +
                 '}';
     }
-
+    // Builder class for organizer
     public static class OrganizerBuilder {
         private String organizerId;
         private String organizerName;
@@ -59,23 +62,25 @@ public class Organizer {
         private String organizerEmail;
         private String organizerPhone;
 
-        public OrganizerBuilder organizerId(String organizerId) {
+        // Setters for organizer
+
+        public OrganizerBuilder setOrganizerId(String organizerId) {
             this.organizerId = organizerId;
             return this;
         }
-        public OrganizerBuilder organizerName(String organizerName) {
+        public OrganizerBuilder setOrganizerName(String organizerName) {
             this.organizerName = organizerName;
             return this;
         }
-        public OrganizerBuilder organizerSurname(String organizerSurname) {
+        public OrganizerBuilder setOrganizerSurname(String organizerSurname) {
             this.organizerSurname = organizerSurname;
             return this;
         }
-        public OrganizerBuilder organizerEmail(String organizerEmail) {
+        public OrganizerBuilder setOrganizerEmail(String organizerEmail) {
             this.organizerEmail = organizerEmail;
             return this;
         }
-        public OrganizerBuilder organizerPhone(String organizerPhone) {
+        public OrganizerBuilder setOrganizerPhone(String organizerPhone) {
             this.organizerPhone = organizerPhone;
             return this;
         }
