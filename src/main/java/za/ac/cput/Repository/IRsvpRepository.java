@@ -1,3 +1,7 @@
+/*IRsvpRepository.java
+Rsvp class
+Author: Patience Phakathi (222228431)
+ */
 package za.ac.cput.Repository;
 
 import za.ac.cput.Domain.Rsvp;
