@@ -1,3 +1,7 @@
+/*RsvpFactory.java
+Rsvp class
+Author: Patience Phakathi (222228431)
+ */
 package za.ac.cput.Factory;
 
 import za.ac.cput.Domain.Rsvp;

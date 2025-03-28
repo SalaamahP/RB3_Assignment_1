@@ -1,3 +1,7 @@
+/*Rsvp.java
+Rsvp class
+Author: Patience Phakathi (222228431)
+ */
 package za.ac.cput.Domain;
 
 import java.util.Objects;
